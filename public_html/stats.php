@@ -7,8 +7,7 @@ setlocale(LC_TIME, 'nb_NO');
 
 $config = yaml_parse_file('../config.yml');
 
-require_once '../lib/php-user-agent/lib/phpUserAgent.php';
-require_once '../lib/php-user-agent/lib/phpUserAgentStringParser.php';
+require_once '../vendor/autoload.php';
 require_once '../visit.php';
 
 $start_date = new DateTime('2013-06-01 00:00:00');

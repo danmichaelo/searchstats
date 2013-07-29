@@ -1,4 +1,17 @@
 Simple usage statistics for [Realfagsbiblioteket app](//github.com/saqimtiaz/BibSearch).
+Currently deployed [here](http://linode.biblionaut.net/app/).
+
+If you don't have YAML;
+
+    sudo apt-get install libyaml-dev
+    sudo pecl install yaml
+
+Setup:
+
+    curl -sS https://getcomposer.org/installer | php
+    php composer.phar update
+
+Copy `config.dist.yml` to `config.yml` and configure for your server.
 
 Database schema:
 
@@ -10,8 +23,4 @@ Database schema:
     `app_version` varchar(8) NULL DEFAULT NULL,
     PRIMARY KEY (`id`) 
     )
-
-Copy `config.dist.yml` to `config.yml` and configure for your server.
-
-Currently deployed [here](http://linode.biblionaut.net/app/).
 

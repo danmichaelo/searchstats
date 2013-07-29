@@ -1,6 +1,9 @@
 <?php
 
-$config = yaml_parse_file('config.yml');
+#error_reporting(E_ALL);
+#ini_set('display_errors', '1');
+
+$config = yaml_parse_file('../config.yml');
 
 function file_get_contents2($url) {
     $ch = curl_init();
@@ -24,12 +27,8 @@ $page = isset($_GET['page']) ? $_GET['page'] : '1';
 
 $app_version = isset($_GET['appver']) ? $_GET['appver'] : 'unknown';
 
-
-header('Content-type: application/json; charset=utf-8');
-echo trim(file_get_contents2('https://ask.bibsys.no/ask2/json/result.jsp?cql=' . $cql . '&page=' . $page));
-
 $pdo = new PDO('mysql:host=' . $config['mysql']['host'] . ';dbname=' . $config['mysql']['db'], $config['mysql']['user'], $config['mysql']['pwd']);
-// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // by default, the default error mode for PDO is PDO::ERRMODE_SILENT
+//$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // by default, the default error mode for PDO is PDO::ERRMODE_SILENT
 if ($pdo) {
 
     $stmt = $pdo->prepare('INSERT INTO visits (timestamp, user_agent, accept_lang, app_version) VALUES(UTC_TIMESTAMP(), :user_agent, :accept_lang, :app_version)');
@@ -40,3 +39,5 @@ if ($pdo) {
     ));
 }
 
+header('Content-type: application/json; charset=utf-8');
+echo trim(file_get_contents2('https://ask.bibsys.no/ask2/json/result.jsp?cql=' . $cql . '&page=' . $page));
