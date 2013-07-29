@@ -27,4 +27,19 @@ class Visit {
         return $this->dt->format('Y-m-d');
     }
 
+    public function req_time() {
+        if ($this->request_time < 500)
+            return '< 500 ms';
+        else if ($this->request_time < 750)
+            return '500–750 ms';
+        else if ($this->request_time < 1000)
+            return '750–1000 ms';
+        else if ($this->request_time < 1500)
+            return '1000–1500 ms';
+        else if ($this->request_time < 2000)
+            return '1500–2000 ms';
+        else
+            return '>2000 ms';
+    }
+
 }

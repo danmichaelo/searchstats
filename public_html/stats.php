@@ -12,7 +12,7 @@ require_once '../visit.php';
 
 $start_date = new DateTime('2013-06-01 00:00:00');
 $end_date = new DateTime('2013-12-31 23:59:59');
-$keys = array('os', 'browser', 'app_version', 'day');
+$keys = array('os', 'browser', 'app_version', 'day', 'req_time');
 $data = array('visits' => 0);
 foreach ($keys as $key) {
     $data[$key] = array();
