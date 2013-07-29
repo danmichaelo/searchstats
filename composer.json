@@ -1,0 +1,5 @@
+{
+    "require": {
+        "ornicar/php-user-agent": "1.0.*@dev"
+    }
+}

@@ -1,0 +1,3 @@
+[submodule "lib/php-user-agent"]
+	path = lib/php-user-agent
+	url = git@github.com:ornicar/php-user-agent.git
