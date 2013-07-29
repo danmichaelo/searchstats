@@ -8,7 +8,7 @@ $config = yaml_parse_file('../config.yml');
 function file_get_contents2($url) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'UiO Realfagsbiblioteket App (+http://search.biblionaut.net/)');
+    curl_setopt($ch, CURLOPT_USERAGENT, 'UiO Realfagsbiblioteket App (+http://linode.biblionaut.net/app/)');
     curl_setopt($ch, CURLOPT_HEADER, 0); // no headers in the output
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return instead of output
     $data = curl_exec($ch);
@@ -23,12 +23,12 @@ if (!isset($_GET['cql'])) {
 }
 
 $cql = $_GET['cql'];
-$page = isset($_GET['page']) ? $_GET['page'] : '1';
+$page = isset($_GET['page']) ? $_GET['page'] : '0';
 $app_version = isset($_GET['appver']) ? $_GET['appver'] : 'unknown';
 
 header('Content-type: application/json; charset=utf-8');
 $t0 = microtime(true);
-$results = trim(file_get_contents2('https://ask.bibsys.no/ask2/json/result.jsp?cql=' . $cql . '&page=' . $page));
+$results = trim(file_get_contents2('https://ask.bibsys.no/ask2/json/result.jsp?cql=' . rawurlencode($cql) . '&page=' . $page));
 $t1 = microtime(true);
 $request_time = ($t1 - $t0) * 1000; // secs to millisecs
 echo $results;
