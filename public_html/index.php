@@ -1,5 +1,7 @@
 <?php
 
+$config = yaml_parse_file('config.yml');
+
 function file_get_contents2($url) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -26,7 +28,7 @@ $app_version = isset($_GET['appver']) ? $_GET['appver'] : 'unknown';
 header('Content-type: application/json; charset=utf-8');
 echo trim(file_get_contents2('https://ask.bibsys.no/ask2/json/result.jsp?cql=' . $cql . '&page=' . $page));
 
-$pdo = new PDO('mysql:host=localhost;dbname=bibliona_search', 'bibliona_app', 'rOZtysjt58ARsg');
+$pdo = new PDO('mysql:host=' . $config['mysql']['host'] . ';dbname=' . $config['mysql']['db'], $config['mysql']['user'], $config['mysql']['pwd']);
 // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // by default, the default error mode for PDO is PDO::ERRMODE_SILENT
 if ($pdo) {
 

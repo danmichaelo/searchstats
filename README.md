@@ -11,5 +11,7 @@ Database schema:
     PRIMARY KEY (`id`) 
     )
 
-Currently deployed [here](http://search.biblionaut.net).
+Copy `config.dist.yml` to `config.yml` and configure for your server.
+
+Currently deployed [here](http://linode.biblionaut.net/app/).
 

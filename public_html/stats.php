@@ -1,9 +1,11 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+//error_reporting(E_ALL);
+//ini_set('display_errors', '1');
 
 setlocale(LC_TIME, 'nb_NO');
+
+$config = yaml_parse_file('../config.yml');
 
 require_once '../lib/php-user-agent/lib/phpUserAgent.php';
 require_once '../lib/php-user-agent/lib/phpUserAgentStringParser.php';
@@ -17,7 +19,7 @@ foreach ($keys as $key) {
     $data[$key] = array();
 }
 
-$pdo = new PDO('mysql:host=localhost;dbname=bibliona_search', 'bibliona_app', 'rOZtysjt58ARsg');
+$pdo = new PDO('mysql:host=' . $config['mysql']['host'] . ';dbname=' . $config['mysql']['db'], $config['mysql']['user'], $config['mysql']['pwd']);
 
 $stmt = $pdo->prepare('SELECT * FROM visits WHERE timestamp >= :start_date AND timestamp <= :end_date');
 $stmt->execute(array(
