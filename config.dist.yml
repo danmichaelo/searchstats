@@ -1,5 +1,0 @@
-mysql: 
-  db: databasename
-  host: localhost
-  pwd: password
-  user: username

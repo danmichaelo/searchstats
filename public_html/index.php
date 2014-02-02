@@ -1,9 +1,9 @@
 <?php
 
-#error_reporting(E_ALL);
-#ini_set('display_errors', '1');
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
-$config = yaml_parse_file('../config.yml');
+$config = json_decode(file_get_contents('../config.json'), true);
 
 function file_get_contents2($url) {
     $ch = curl_init();
@@ -17,8 +17,9 @@ function file_get_contents2($url) {
 }
 
 if (!isset($_GET['cql'])) {
-    header('Content-type: text/plain; charset=utf-8');
-    echo 'Usage: ?cql=...&appver=...';
+    // header('Content-type: text/plain; charset=utf-8');
+    // echo 'Usage: ?cql=...&appver=...';
+    header('Location: stats.php');
     exit();
 }
 
