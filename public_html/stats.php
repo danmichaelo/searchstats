@@ -1,18 +1,18 @@
 <?php
 
-//error_reporting(E_ALL);
-//ini_set('display_errors', '1');
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
 setlocale(LC_TIME, 'nb_NO');
 
-$config = yaml_parse_file('../config.yml');
+$config = json_decode(file_get_contents('../config.json'), true);
 
 require_once '../vendor/autoload.php';
 require_once '../visit.php';
 
 $start_date = new DateTime('2013-06-01 00:00:00');
-$end_date = new DateTime('2013-12-31 23:59:59');
-$keys = array('os', 'browser', 'app_version', 'day', 'req_time');
+$end_date = new DateTime('2014-04-01 23:59:59');
+$keys = array('os', 'browser', 'app_version', 'req_time', 'day');
 $data = array('visits' => 0);
 foreach ($keys as $key) {
     $data[$key] = array();
@@ -48,6 +48,7 @@ header('Content-type: text/html; charset=utf-8');
 <head>
   <meta charset="utf-8" />
   <title>Stats</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
  
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
@@ -55,12 +56,14 @@ header('Content-type: text/html; charset=utf-8');
   <![endif]-->
  
   <!-- Complete CSS (Responsive, With Icons) -->
-  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+
 </head>
 <body>
 
-  <h1>App search stats</h1>
-  
+ <div class="container">
+  <h1>Søk i Realfagsbiblioteket-appen</h1>
+
   <p>
     Periode: 
     <?php echo strftime('%e. %B %Y', $start_date->getTimestamp()); ?>
@@ -71,14 +74,16 @@ header('Content-type: text/html; charset=utf-8');
     Antall søk totalt: <?php echo $data['visits']; ?>
   </p>
 
+  <div class="row">
   <?php
   ksort($data['day']);
 
   foreach ($keys as $key) {
     ?>
-      <table border="1">
+      <div class="col-sm-3">
+      <table class="table">
         <caption><?php echo $key; ?></caption>
-        <tbody>        
+        <tbody>
         <?php
             foreach ($data[$key] as $label => $visits) {
                 echo "<tr><td>" . $label . "</td><td>" . $visits . "</td></tr>";
@@ -86,17 +91,12 @@ header('Content-type: text/html; charset=utf-8');
         ?>
         </tbody>
       </table>
+      </div>
     <?php
   }
   ?>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script> 
-  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-  <script type='text/javascript'>     
-    $(document).ready(function() {
-        // ...
-    });
-  </script>
- 
-</body> 
+  </div>
+
+</body>
 </html>
