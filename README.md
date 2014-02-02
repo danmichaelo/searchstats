@@ -1,10 +1,5 @@
 Simple usage statistics for [Realfagsbiblioteket app](//github.com/saqimtiaz/BibSearch).
-Currently deployed [here](http://linode.biblionaut.net/app/).
-
-If you don't have YAML;
-
-    sudo apt-get install libyaml-dev
-    sudo pecl install yaml
+Currently deployed [here](//bibapp.biblionaut.net/).
 
 Setup:
 
